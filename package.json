@@ -1,0 +1,19 @@
+{
+  "name": "habit-tracker",
+  "version": "1.0.0",
+  "description": "A simple habit tracking application that helps users build and maintain positive routines.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "nodemon src/main.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
