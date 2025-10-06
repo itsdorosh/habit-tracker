@@ -6,7 +6,16 @@ class HabitsController {
 
     createHabit(req, res) {
         const { name, description } = req.body;
-        const newHabit = { id: this.currentId++, name, description };
+
+        // Validation
+        if (!name || typeof name !== 'string' || name.trim().length === 0) {
+            return res.status(400).json({ message: 'Name is required and must be a non-empty string.' });
+        }
+        if (description && typeof description !== 'string') {
+            return res.status(400).json({ message: 'Description must be a string.' });
+        }
+
+        const newHabit = { id: this.currentId++, name: name.trim(), description: description?.trim() || '' };
         this.habits.push(newHabit);
         res.status(201).json(newHabit);
     }
@@ -24,8 +33,16 @@ class HabitsController {
             return res.status(404).json({ message: 'Habit not found' });
         }
 
-        habit.name = name || habit.name;
-        habit.description = description || habit.description;
+        // Validation
+        if (name !== undefined && (typeof name !== 'string' || name.trim().length === 0)) {
+            return res.status(400).json({ message: 'Name must be a non-empty string.' });
+        }
+        if (description !== undefined && typeof description !== 'string') {
+            return res.status(400).json({ message: 'Description must be a string.' });
+        }
+
+        habit.name = name !== undefined ? name.trim() : habit.name;
+        habit.description = description !== undefined ? description.trim() : habit.description;
         res.status(200).json(habit);
     }
 
